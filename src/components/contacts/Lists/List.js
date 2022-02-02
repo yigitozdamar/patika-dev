@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const List = ({ contacts }) => {
+const List = ({ contacts,setContacts }) => {
   const [filterText, setFilterText] = useState("");
 
   const filtered = contacts.filter((item) => {
@@ -11,6 +11,13 @@ const List = ({ contacts }) => {
         .includes(filterText.toLocaleLowerCase()); // FilterText aradğımız değerin içinde var mı yok mu anlamak için.
     });
   });
+
+  
+
+  const deleteMe = (todoFullname) => {
+    const newTodos = contacts.filter((item) => item.fullname !== todoFullname);
+    setContacts(newTodos);
+ };
 
   return (
     <div>
@@ -23,10 +30,11 @@ const List = ({ contacts }) => {
       />
       <ul className="list">
         {filtered.map((contact, key) => (
-          <li key={key}>
+          <li key={key} id="listID">
             {" "}
-            <span>{contact.fullname}</span>
-            <span>{contact.phone_number}</span>
+            <span className="span1" >{contact.fullname}</span>
+            <span className="span2">{contact.phone_number}</span>
+            <button className="buttonSpan" onClick={()=>deleteMe(contact.fullname)}>X</button>
           </li>
         ))}
       </ul>
